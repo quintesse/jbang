@@ -83,7 +83,7 @@ if "!JAVA_EXEC!"=="" (
   )
 )
 
-set tmpfile=%TDIR%\%RANDOM%.tmp
+set tmpfile=%TMP%\%RANDOM%.jbang.tmp
 rem execute jbang and pipe to temporary random file
 set "CMD=!JAVA_EXEC!"
 SETLOCAL DISABLEDELAYEDEXPANSION
