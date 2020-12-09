@@ -222,6 +222,10 @@ public class Settings {
 		return getConfigDir().resolve(AliasUtil.JBANG_IMPLICIT_CATALOG_JSON);
 	}
 
+	public static Path getUserConfigFile() {
+		return getConfigDir().resolve(CONFIG_JSON);
+	}
+
 	static protected void clearDependencyCache() {
 		cache = null;
 	}
