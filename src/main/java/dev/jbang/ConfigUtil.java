@@ -18,6 +18,9 @@ import com.google.gson.GsonBuilder;
 public class ConfigUtil {
 
 	public static class Config extends HashMap<String, Object> {
+		public String editor() {
+			return getString("editor", null);
+		}
 
 		private String getString(String key, String defaultValue) {
 			if (containsKey(key)) {
