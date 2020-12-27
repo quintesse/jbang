@@ -37,7 +37,7 @@ public class Settings {
 
 	public static final String JBANG_DOT_DIR = ".jbang";
 
-	public static final String CONFIG_JSON = "config.json";
+	public static final String CONFIG_JSON = "jbang-config.json";
 	public static final String TRUSTED_SOURCES_JSON = "trusted-sources.json";
 	public static final String DEPENDENCY_CACHE_JSON = "dependency_cache.json";
 	public static final String CURRENT_JDK = "currentjdk";
