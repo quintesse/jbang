@@ -5,7 +5,6 @@ import static dev.jbang.Util.warnMsg;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,7 +12,6 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class ConfigUtil {
 
@@ -62,7 +60,7 @@ public class ConfigUtil {
 		result.putAll(rd);
 	}
 
-	private static Config readConfig(Path configFile) {
+	static Config readConfig(Path configFile) {
 		Config cfg = new Config();
 		if (Files.isRegularFile(configFile)) {
 			try (Reader in = Files.newBufferedReader(configFile)) {
@@ -80,12 +78,17 @@ public class ConfigUtil {
 		return cfg;
 	}
 
-	private static void writeConfig(Path configFile, Config cfg) throws IOException {
+	static void writeConfig(Path configFile, Config cfg) throws IOException {
 		verboseMsg(String.format("Reading configuration from %s", configFile));
-		try (Writer out = Files.newBufferedWriter(configFile)) {
-			Gson parser = new GsonBuilder().setPrettyPrinting().create();
-			parser.toJson(cfg, out);
-		}
+		Util.writeString(configFile, toJSon(cfg));
+	}
+
+	static String toJSon(Config cfg) {
+		String config = Settings.getTemplateEngine()
+								.getTemplate("jbang-config.json.qute")
+								.data("config", cfg)
+								.render();
+		return config;
 	}
 
 	/**
