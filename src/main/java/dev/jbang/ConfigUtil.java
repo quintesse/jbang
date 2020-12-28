@@ -60,7 +60,7 @@ public class ConfigUtil {
 		result.putAll(rd);
 	}
 
-	static Config readConfig(Path configFile) {
+	public static Config readConfig(Path configFile) {
 		Config cfg = new Config();
 		if (Files.isRegularFile(configFile)) {
 			try (Reader in = Files.newBufferedReader(configFile)) {
@@ -78,7 +78,7 @@ public class ConfigUtil {
 		return cfg;
 	}
 
-	static void writeConfig(Path configFile, Config cfg) throws IOException {
+	public static void writeConfig(Path configFile, Config cfg) throws IOException {
 		verboseMsg(String.format("Reading configuration from %s", configFile));
 		Util.writeString(configFile, toJSon(cfg));
 	}
@@ -89,6 +89,32 @@ public class ConfigUtil {
 								.data("config", cfg)
 								.render();
 		return config;
+	}
+
+	public static Path setNearestConfigValue(Path cwd, String key, String value) throws IOException {
+		Path configFile = getConfigFile(cwd, null);
+		setConfigValue(configFile, key, value);
+		return configFile;
+	}
+
+	public static void setConfigValue(Path configFile, String key, String value) throws IOException {
+		Config cfg = readConfig(configFile);
+		cfg.put(key, value);
+		writeConfig(configFile, cfg);
+	}
+
+	public static Path unsetNearestConfigValue(Path cwd, String key) throws IOException {
+		Path configFile = getConfigFile(cwd, null);
+		unsetConfigValue(configFile, key);
+		return configFile;
+	}
+
+	public static void unsetConfigValue(Path configFile, String key) throws IOException {
+		Config cfg = readConfig(configFile);
+		if (cfg.containsKey(key)) {
+			cfg.remove(key);
+			writeConfig(configFile, cfg);
+		}
 	}
 
 	/**
@@ -112,5 +138,12 @@ public class ConfigUtil {
 
 	private static Path findNearestLocalConfig(Path dir) {
 		return Util.findNearestFileWith(dir, Settings.CONFIG_JSON, p -> true);
+	}
+
+	private static Path findNearestLocalConfigWithKey(Path dir, String key) {
+		return Util.findNearestFileWith(dir, Settings.CONFIG_JSON, configFile -> {
+			Config cfg = readConfig(configFile);
+			return cfg.containsKey(key);
+		});
 	}
 }
