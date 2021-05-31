@@ -1,0 +1,28 @@
+plugins {
+	id 'java'
+}
+
+group 'dev.jbang'
+version '0.71.1.1'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'info.picocli:picocli-codegen:4.6.1'
+	implementation 'com.squareup:javapoet:1.13.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+tasks.withType( JavaCompile ).configureEach {
+	options.compilerArgs.addAll( [
+			'--add-exports', 'jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED',
+			'--add-exports', 'jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED'
+	] )
+}
+
+test {
+	useJUnitPlatform()
+}

@@ -23,6 +23,8 @@ repositories {
 }
 
 dependencies {
+	annotationProcessor project(':annotation')
+
 	implementation 'com.offbytwo:docopt:0.6.0.20150202'
 
 	implementation 'org.apache.commons:commons-text:1.9'
@@ -45,7 +47,7 @@ dependencies {
 	//implementation 'com.google.guava:guava:28.2-jre'
 
 
-	testCompile "com.github.tomakehurst:wiremock-jre8:2.27.2"
+	testImplementation "com.github.tomakehurst:wiremock-jre8:2.27.2"
 
 	testImplementation "org.junit.jupiter:junit-jupiter:5.7.1"
 	testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.7.1')
@@ -67,11 +69,11 @@ tasks.withType(AbstractArchiveTask) {
 
 
 sonarqube {
-properties {
-	property "sonar.projectKey", "jbangdev_jbang"
-	property "sonar.organization", "jbangdev"
-	property "sonar.host.url", "https://sonarcloud.io"
-}
+	properties {
+		property "sonar.projectKey", "jbangdev_jbang"
+		property "sonar.organization", "jbangdev"
+		property "sonar.host.url", "https://sonarcloud.io"
+	}
 }
 
 spotless {
@@ -146,7 +148,7 @@ jar {
 				'Main-Class': 'dev.jbang.Main',
 		)
 	}
-	}
+}
 
 
 compileJava {

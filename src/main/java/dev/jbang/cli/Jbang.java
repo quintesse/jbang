@@ -139,7 +139,8 @@ public class Jbang extends BaseCommand {
 	};
 
 	public static CommandLine getCommandLine(PrintWriter localout, PrintWriter localerr) {
-		CommandLine cl = new CommandLine(new Jbang());
+//		CommandLine cl = new CommandLine(new Jbang());
+		CommandLine cl = new CommandLine(Jbang_CliCfg.createCmdSpec());
 
 		cl.getHelpSectionMap().remove(SECTION_KEY_COMMAND_LIST_HEADING);
 		cl.getHelpSectionMap().put(SECTION_KEY_COMMAND_LIST, getCommandRenderer());
