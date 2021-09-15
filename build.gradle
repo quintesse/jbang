@@ -26,7 +26,7 @@ dependencies {
 	implementation 'com.offbytwo:docopt:0.6.0.20150202'
 
 	implementation 'org.apache.commons:commons-text:1.9'
-	implementation 'org.apache.commons:commons-compress:1.20'
+	implementation 'org.apache.commons:commons-compress:1.21'
 	implementation 'info.picocli:picocli:4.6.1'
 	implementation 'io.quarkus.qute:qute-core:1.12.2.Final'
 	implementation 'kr.motd.maven:os-maven-plugin:1.7.0'
